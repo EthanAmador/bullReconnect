@@ -2,7 +2,7 @@
 
 Implement reconnection logic when workers lose connection with redis.
 
-This project runs on version `>=12` node and `>=6`
+This project runs on version `>=12` node and npm `>=6`
 
 ## How to run
 
