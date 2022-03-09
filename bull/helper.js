@@ -9,14 +9,6 @@ const initializeWorker = ({ Queue, queueName, start, concurrency = 1 }) => {
       done(error);
     }
   });
-
-  queue.on("completed", function (job, result) {
-    console.log(`Job ${job.id} is completed`);
-  });
-
-  queue.on("error", function (error) {
-    console.error(error);
-  });
 };
 
 module.exports = { initializeWorker };

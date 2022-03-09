@@ -3,12 +3,13 @@ const {
   settings: { PROCESS_QUEUES },
 } = require("../../bull");
 const { start } = require("./worker");
+const { CONCURRENCY } = process.env;
 
 module.exports = (Queue) => {
   helper.initializeWorker({
     Queue,
     queueName: PROCESS_QUEUES.SAY_HELLO,
     start,
-    concurrency: 1,
+    concurrency: +CONCURRENCY || 20,
   });
 };

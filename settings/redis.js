@@ -1,5 +1,5 @@
 const Redis = require("ioredis");
-const { REDIS_HOST, REDIS_PORT, REDIS_AUTH, REDIS_DB = 0 } = process.env;
+const { REDIS_HOST, REDIS_PORT, REDIS_PASSWORD, REDIS_DB = 0 } = process.env;
 
 let redisClient, redisSubscriber;
 
@@ -22,7 +22,7 @@ const createRedisClient = () =>
   new Redis({
     port: +REDIS_PORT,
     host: REDIS_HOST,
-    password: REDIS_AUTH,
+    password: REDIS_PASSWORD,
     db: +REDIS_DB,
     retryStrategy,
   });

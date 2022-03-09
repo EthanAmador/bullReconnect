@@ -1,0 +1,43 @@
+version: '3.9'
+
+services:
+  redis:
+    image: 'redis'
+    container_name: 'redis'
+    ports:
+      - '6379:6379'
+  bull-workers:
+    deploy:
+        resources:
+            limits:
+              cpus: '0.50'
+              memory: 80M
+            reservations:
+              cpus: '0.25'
+              memory: 60M
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: ./docker/bullReconnect/Dockerfile
+    working_dir: /bullReconnect/
+    volumes:
+      - .:/bullReconnect
+    command: npm run start
+    depends_on:
+      - redis
+  arena:
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: ./docker/arena/Dockerfile
+    working_dir: /arenaBullReconnect/
+    volumes:
+      - .:/arenaBullReconnect
+    command: npm run start:arena
+    ports:
+      - '${ARENA_APP_PORT}:${ARENA_APP_PORT}'
+    depends_on:
+      - bull-workers
+    
